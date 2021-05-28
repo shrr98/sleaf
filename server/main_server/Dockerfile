@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
     python3 python3-pip python3-dev build-essential
-
+RUN apt-get install ffmpeg libsm6 libxext6  -y
 RUN python3 -m pip install --upgrade pip setuptools wheel
 
 COPY requirements.txt /app/
