@@ -5,7 +5,7 @@ docker build -t server_sleaf:latest .
 
 2. run container
 ```bash
-docker run -p 5000:5000 -e FLASK_APP=sleaf.py -e LC_ALL=C.UTF-8 -e LANG=C.UTF-8 -e FLASK_ENV=deployment -it myimage flask run --host=0.0.0.0
+sudo docker run -v "$(pwd)/model/resnet50_bgmodify:/app/model/resnet50_bgmodify" -p 5000:5000 server_sleaf:latest
 ```
 URL bisa diakses:
 - http://127.0.0.1:5000 : halaman utama dummy (lewat browser)

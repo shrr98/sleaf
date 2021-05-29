@@ -45,3 +45,6 @@ class Classifier:
         #         'name' : self.class_index[5],
         #         'score' : 0.98
         #     }
+
+    def get_numclasses(self):
+        return len(self.class_index)
