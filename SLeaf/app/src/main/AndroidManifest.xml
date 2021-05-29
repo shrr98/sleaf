@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SLeaf">
         <activity android:name=".views.main.MainActivity" />
-        <activity android:name=".views.splash.SplashActivity">
+        <activity
+            android:name=".views.splash.SplashActivity"
+            android:theme="@style/Theme.SLeaf.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
