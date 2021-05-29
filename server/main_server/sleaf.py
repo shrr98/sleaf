@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 from PIL import Image
 import numpy as np
-from .classifier import Classifier
+from classifier import Classifier
 import os
 import json
 

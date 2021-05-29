@@ -1,15 +1,15 @@
-# import tensorflow as tf
+import tensorflow as tf
 import cv2
 import numpy as np
 import requests
 import json
 
-MODEL_PATH = 'model/resnet50_bgmodify.h5'
+MODEL_PATH = 'model/resnet50_bgmodify'
 LABEL_PATH = 'model/labels.txt'
 
 class Classifier:
     def __init__(self):
-        # self.model = tf.keras.models.load_model(MODEL_PATH)
+        self.model = tf.keras.models.load_model(MODEL_PATH)
         self.class_index = self._get_label_index(LABEL_PATH)
     
     def _get_label_index(self, filename):
@@ -29,10 +29,11 @@ class Classifier:
         img_prep = self._preprocess(img)
         img_prep = np.expand_dims(img_prep, axis=0)
         print(img_prep.shape)
-        data = json.dumps({"signature_name": "serving_default", "instances": img_prep.tolist()})
-        headers = {"content-type": "application/json"}
-        json_response = requests.post('http://172.17.0.2:8501/v1/models/resnet50_bgmodify:predict', data=data, headers=headers)
-        predictions = json.loads(json_response.text)['predictions']
+        # data = json.dumps({"signature_name": "serving_default", "instances": img_prep.tolist()})
+        # headers = {"content-type": "application/json"}
+        # json_response = requests.post('http://172.17.0.2:8501/v1/models/resnet50_bgmodify:predict', data=data, headers=headers)
+        # predictions = json.loads(json_response.text)['predictions']
+        predictions = self.model.predict(img_prep)
         pred = predictions[0]
         y = np.argmax(pred)
         return {'class':y,

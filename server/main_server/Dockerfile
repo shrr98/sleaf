@@ -1,18 +1,20 @@
-FROM ubuntu:18.04
-RUN apt-get update && \
-    apt-get install --no-install-recommends -y \
-    python3 python3-pip python3-dev build-essential
-RUN apt-get install ffmpeg libsm6 libxext6  -y
-RUN python3 -m pip install --upgrade pip setuptools wheel
+FROM tensorflow/tensorflow:latest
 
-COPY requirements.txt /app/
+RUN apt-get update
+RUN python3 -m pip install --upgrade pip setuptools wheel
+RUN apt-get install ffmpeg libsm6 libxext6  -y
+
 WORKDIR /app
+COPY requirements.txt .
+
 RUN pip3 install -r requirements.txt
 
-COPY model/labels.txt /app/model/labels.txt
-COPY resources /app/resources
-COPY sleaf.py /app
-COPY classifier.py /app
-COPY __init__.py /app
+COPY model/labels.txt ./model/labels.txt
+COPY resources ./resources
+COPY sleaf.py .
+COPY classifier.py .
+COPY __init__.py .
 
 EXPOSE 5000
+
+CMD exec gunicorn --bind :5000 --workers 1 --threads 8 --timeout 0 sleaf:app
