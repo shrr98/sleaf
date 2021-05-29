@@ -3,8 +3,7 @@
 
     <string name="title_home">Home</string>
     <string name="title_scan">Scan</string>
-    <string name="title_history">History</string>
-    <string name="title_favorites">Favorites</string>
+    <string name="title_favorite">Favorites</string>
 
     <string name="label_capture_image">Capture Image</string>
     <string name="label_scan_image">Scan Image</string>
