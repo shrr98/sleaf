@@ -8,4 +8,5 @@
     <string name="label_capture_image">Capture Image</string>
     <string name="label_scan_image">Scan Image</string>
     <string name="label_open_gallery">Gallery</string>
+    <string name="empty_favorite">You dont have any favorite plant!</string>
 </resources>
