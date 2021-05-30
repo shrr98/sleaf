@@ -20,15 +20,9 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
         fun bind(data: Plant) {
             with(binding) {
-                try {
-                    Glide.with(itemView.context)
-                        .load(data.imageURL[0])
-                        .into(imgListItem)
-                } finally  {
-                    Glide.with(itemView.context)
-                        .load(data.imageURL[1])
-                        .into(imgListItem)
-                }
+                Glide.with(itemView.context)
+                    .load(data.imageURL[0])
+                    .into(imgListItem)
                 tvListItemName.text = data.name
             }
         }
