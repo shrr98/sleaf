@@ -22,7 +22,6 @@ class HomeViewModel(private val plantsUseCase: PlantsUseCase, private val favori
         favoriteUseCase.addFavorite(plant)
     }
 
-    fun getPlant() {
-        plantsUseCase.getPlant().asLiveData()
-    }
+    fun getPlant() = plantsUseCase.getPlant().asLiveData()
+
 }

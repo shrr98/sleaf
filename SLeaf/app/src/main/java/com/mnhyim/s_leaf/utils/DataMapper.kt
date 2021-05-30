@@ -3,6 +3,7 @@ package com.mnhyim.s_leaf.utils
 import com.mnhyim.s_leaf.core.data.local.entity.PlantEntity
 import com.mnhyim.s_leaf.core.data.remote.response.PlantResponse
 import com.mnhyim.s_leaf.core.domain.model.Plant
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 
 object DataMapper {
     fun mapEntitiesToDomain(input: List<PlantEntity>): List<Plant> =
@@ -27,7 +28,7 @@ object DataMapper {
         isFavorite = input.isFavorite
     )
 
-    fun mapResponseListToDomain(input: List<PlantResponse>): List<Plant> =
+    fun mapResponseToDomain(input: List<PlantResponse>): List<Plant> =
         input.map {
             Plant(
                 id = it.id,
@@ -40,7 +41,7 @@ object DataMapper {
             )
         }
 
-    fun mapResponseListToDomain(input: PlantResponse) =
+    fun mapResponseToDomain(input: PlantResponse) =
         Plant(
             id = input.id,
             desc = input.desc,
@@ -50,5 +51,13 @@ object DataMapper {
             imageURL = input.imageURL,
             isFavorite = false
         )
+
+    fun mapDomainToCarouselItem(input: List<Plant>): List<CarouselItem> =
+        input.map {
+            CarouselItem(
+                imageUrl = it.imageURL[0],
+                caption = it.className
+            )
+        }
 
 }

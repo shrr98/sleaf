@@ -13,11 +13,11 @@ class PlantsInteractor(private val favoriteRepository: IPlantsRepository): Plant
         return favoriteRepository.getAllPlants()
     }
 
-    override fun getPlant(): Flow<Plant> {
+    override fun getPlant(): Flow<List<Plant>> {
         return favoriteRepository.getPlant()
     }
-//
-//    override fun scanImage(): Flow<PlantResponse> {
-//        return favoriteRepository.scanImage()
-//    }
+
+    override fun uploadImage(image: String): Flow<Plant> {
+        return favoriteRepository.uploadImage(image)
+    }
 }

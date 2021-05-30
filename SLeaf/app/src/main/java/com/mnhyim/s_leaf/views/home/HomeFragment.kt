@@ -15,6 +15,7 @@ import com.mnhyim.s_leaf.core.ui.HomeAdapter
 import com.mnhyim.s_leaf.databinding.FragmentFavoriteBinding
 import com.mnhyim.s_leaf.databinding.FragmentHomeBinding
 import com.mnhyim.s_leaf.utils.Constants.CAROUSEL_AUTOPLAY
+import com.mnhyim.s_leaf.utils.DataMapper
 import com.mnhyim.s_leaf.views.favorite.FavoriteViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -73,6 +74,8 @@ class HomeFragment : Fragment() {
                 homeAdapter.setData(data)
                 if (homeAdapter.getItemCount() > 0) homeBinding.progressBar.visibility = View.INVISIBLE
             })
+
+            setCarousel()
         }
     }
 
@@ -80,9 +83,6 @@ class HomeFragment : Fragment() {
     private fun setCarousel() {
         homeBinding.csHome.apply {
             registerLifecycle(lifecycle)
-            // setData()
-
-            carouselType = CarouselType.BLOCK
             autoPlay = true
             autoPlayDelay = CAROUSEL_AUTOPLAY
             touchToPause = true
@@ -97,5 +97,9 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+        homeViewModel.getPlant().observe(viewLifecycleOwner, { data ->
+            val data = DataMapper.mapDomainToCarouselItem(data)
+            homeBinding.csHome.setData(data)
+        })
     }
 }
