@@ -8,18 +8,19 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.mnhyim.s_leaf.R
-import com.mnhyim.s_leaf.databinding.FragmentHomeBinding
 import com.mnhyim.s_leaf.databinding.FragmentScanBinding
-import com.mnhyim.s_leaf.views.home.HomeViewModel
+import com.mnhyim.s_leaf.views.detail.DetailActivity
+import kotlinx.android.synthetic.main.fragment_scan.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
+
 @FlowPreview
 @ExperimentalCoroutinesApi
 class ScanFragment : Fragment(), View.OnClickListener {
@@ -52,6 +53,11 @@ class ScanFragment : Fragment(), View.OnClickListener {
         scanBinding.btnGalleryPicker.setOnClickListener(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        scanBinding.progressBar.visibility = View.GONE
+    }
+
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_captureImage -> {
@@ -60,7 +66,9 @@ class ScanFragment : Fragment(), View.OnClickListener {
             }
             R.id.btn_scanImage -> {
                 Log.d(TAG, "btn_sendImage: pressed")
+                scanBinding.progressBar.visibility = View.VISIBLE
                 scanImage(takenImage)
+                startActivity(Intent(context, DetailActivity::class.java))
             }
             R.id.btn_galleryPicker -> {
                 Log.d(TAG, "btn_galleryPicker: pressed")
@@ -75,12 +83,20 @@ class ScanFragment : Fragment(), View.OnClickListener {
         if (resultCode == Activity.RESULT_OK && requestCode == CAMERA_REQUEST && data != null) {
             takenImage = data.extras?.get("data") as Bitmap
             scanBinding.imgScanResult.setImageBitmap(takenImage)
+            scanBinding.btnScanImage.apply {
+                isClickable = true
+                isEnabled = true
+            }
         } else if (resultCode == Activity.RESULT_OK && requestCode == GALLERY_REQUEST && data != null) {
             val imageUri: Uri? = data.data
             val bitmap =
                 MediaStore.Images.Media.getBitmap(requireActivity().contentResolver, imageUri)
             takenImage = bitmap
             scanBinding.imgScanResult.setImageBitmap(bitmap)
+            scanBinding.btnScanImage.apply {
+                isClickable = true
+                isEnabled = true
+            }
         }
     }
 
