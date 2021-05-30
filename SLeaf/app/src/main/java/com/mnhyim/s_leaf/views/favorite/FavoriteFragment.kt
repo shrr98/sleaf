@@ -15,6 +15,8 @@ import java.util.*
 
 class FavoriteFragment : Fragment() {
 
+    private var TAG: String = this::class.java.simpleName
+
     private val favoriteViewModel: FavoriteViewModel by viewModel()
 
     private var _favoriteBinding: FragmentFavoriteBinding? = null
@@ -32,31 +34,14 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
 
-            // TODO: DEBUG BUTTON, hapus nnti
-            favoriteBinding.btnDebug.setOnClickListener {
-                val c = Calendar.getInstance()
-                val x = c.get(Calendar.SECOND)
-                favoriteViewModel.addFavorite(
-                    Plant(
-                        id = 0,
-                        className = "Classname $x",
-                        name = "Name $x",
-                        desc = "Desc  $x",
-                        scientificName = "ScientificName $x",
-                        imageURL = "imageURL $x",
-                        isFavorite = true
-                    )
-                )
-            }
-
             val favoriteAdapter = FavoriteAdapter()
             favoriteAdapter.onItemClick = { selectedData ->
-                Log.d("FavoriteFragment", "$selectedData clicked")
+                Log.d(TAG, "$selectedData clicked")
             }
 
             favoriteViewModel.listFavorite.observe(viewLifecycleOwner, { dataFavorite ->
                 favoriteAdapter.setData(dataFavorite)
-                Log.d("FavoriteFragment", "${favoriteViewModel.listFavorite.value}")
+                Log.d(TAG, "${favoriteViewModel.listFavorite.value}")
             })
 
             with(favoriteBinding.rvPlants) {

@@ -11,20 +11,19 @@ import kotlinx.coroutines.flow.flowOn
 
 class RemoteDataSource(private val apiService: ApiService) {
 
-//    suspend fun getAllPlants(): Flow<ApiResponse<List<PlantResponse>>> {
-//        return flow {
-//            try {
-//                val response = apiService.getAllPlants()
-//                val dataArray = response
-//                if (dataArray.isNotEmpty()) {
-//                    emit(ApiResponse.Success(response))
-//                } else {
-//                    emit(ApiResponse.Empty)
-//                }
-//            } catch (e: Exception) {
-//                emit(ApiResponse.Error(e.toString()))
-//                Log.e("RemoteDataSource", e.toString())
-//            }
-//        }.flowOn(Dispatchers.IO)
-//    }
+    fun getAllPlants(): Flow<List<PlantResponse>> {
+        return flow {
+            try {
+                val response = apiService.getAllPlants()
+                val dataArray = response
+                if (dataArray.isNotEmpty()) {
+                    emit(dataArray)
+                } else {
+                    Log.e("RemoteDataSource", "empty")
+                }
+            } catch (e: Exception) {
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 }

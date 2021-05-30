@@ -1,11 +1,12 @@
 package com.mnhyim.s_leaf.core.domain.usecase
 
 import com.mnhyim.s_leaf.core.data.remote.response.PlantResponse
+import com.mnhyim.s_leaf.core.domain.model.Plant
 import kotlinx.coroutines.flow.Flow
 
 interface PlantsUseCase {
 
-    fun getAllPlants(): Flow<List<PlantResponse>>
-    fun getRandomPlants(): Flow<PlantResponse>
-    fun scanImage(): Flow<PlantResponse>
+    fun getAllPlants(): Flow<List<Plant>>
+//    fun getRandomPlants(): Flow<Plant>
+//    fun scanImage(): Flow<Plant>
 }

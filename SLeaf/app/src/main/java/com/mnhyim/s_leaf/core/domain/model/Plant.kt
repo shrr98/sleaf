@@ -6,11 +6,11 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Plant(
-    val id: Int,
+    val id: Int = 0,
     val className: String,
     val name: String,
     val desc: String,
     val scientificName: String,
-    val imageURL: String,
+    val imageURL: List<String>,
     val isFavorite: Boolean
 ) : Parcelable

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class PlantResponse(
     @field:SerializedName("id")
-    val id: String,
+    val id: Int,
 
     @field:SerializedName("class_name")
     val className: String,

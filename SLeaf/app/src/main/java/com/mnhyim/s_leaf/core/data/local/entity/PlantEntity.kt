@@ -23,7 +23,7 @@ data class PlantEntity(
     var scientificName: String,
 
     @ColumnInfo(name = "imageURL")
-    var imageURL: String,
+    var imageURL: List<String>,
 
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = false

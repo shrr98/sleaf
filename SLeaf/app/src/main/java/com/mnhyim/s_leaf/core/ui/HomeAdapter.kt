@@ -10,12 +10,12 @@ import com.mnhyim.s_leaf.core.domain.model.Plant
 import com.mnhyim.s_leaf.databinding.ListItemPlantBinding
 import java.util.ArrayList
 
-class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
+class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
-    private val listFavorite = ArrayList<Plant>()
+    private val listHome = ArrayList<Plant>()
     var onItemClick: ((Plant) -> Unit)? = null
 
-    inner class FavoriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class HomeViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ListItemPlantBinding.bind(itemView)
 
         fun bind(data: Plant) {
@@ -29,7 +29,7 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 
         init {
             binding.root.setOnClickListener {
-                onItemClick?.invoke(listFavorite[adapterPosition])
+                onItemClick?.invoke(listHome[adapterPosition])
             }
         }
     }
@@ -37,18 +37,18 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
 
     fun setData(newListData: List<Plant>?) {
         if (newListData == null) return
-        listFavorite.clear()
-        listFavorite.addAll(newListData)
+        listHome.clear()
+        listHome.addAll(newListData)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        FavoriteViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_plant, parent, false))
+        HomeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_plant, parent, false))
 
-    override fun getItemCount() = listFavorite.size
+    override fun getItemCount() = listHome.size
 
-    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
-        val data = listFavorite[position]
+    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+        val data = listHome[position]
         holder.bind(data)
     }
 }

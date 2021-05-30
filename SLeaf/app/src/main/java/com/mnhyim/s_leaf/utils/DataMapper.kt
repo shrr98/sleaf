@@ -1,6 +1,7 @@
 package com.mnhyim.s_leaf.utils
 
 import com.mnhyim.s_leaf.core.data.local.entity.PlantEntity
+import com.mnhyim.s_leaf.core.data.remote.response.PlantResponse
 import com.mnhyim.s_leaf.core.domain.model.Plant
 
 object DataMapper {
@@ -25,4 +26,17 @@ object DataMapper {
         imageURL = input.imageURL,
         isFavorite = input.isFavorite
     )
+
+    fun mapResponseToDomain(input: List<PlantResponse>): List<Plant> =
+        input.map {
+            Plant(
+                id = it.id,
+                desc = it.desc,
+                className = it.className,
+                name = it.name,
+                scientificName = it.scientificName,
+                imageURL = it.imageURL,
+                isFavorite = false
+            )
+        }
 }
