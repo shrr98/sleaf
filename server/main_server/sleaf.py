@@ -38,9 +38,12 @@ def process_image():
 
 @app.route('/random', methods=['GET'])
 def random():
-    class_idx = np.random.randint(0, 30)
-    info = get_info(class_idx)
-    return jsonify(info)
+    infos = []
+    classes = np.random.randint(0,30, 3)
+    for class_idx in classes:
+        info = get_info(int(class_idx))
+        infos.append(info)
+    return jsonify(infos)
 
 @app.route('/all', methods=['GET'])
 def get_all_info():
@@ -54,6 +57,7 @@ def get_info(class_idx):
     path = os.path.join(app.config["INFO_DIR"], str(class_idx)+'.json')
     with open(path, 'r') as f:
         info = json.load(f)
+    info['id'] = class_idx
     return info
 
 if __name__ == "__main__":
