@@ -2,9 +2,10 @@ package com.mnhyim.s_leaf.core.data.local.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "favorite")
+@Entity(tableName = "favorite", indices = [Index(value = ["class_name"], unique = true)])
 data class PlantEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
