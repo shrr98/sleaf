@@ -8,6 +8,6 @@ interface IPlantsRepository {
     fun getAllFavorites(): Flow<List<Plant>>
     fun addFavorite(plant: Plant)
     fun getAllPlants(): Flow<List<Plant>>
-//    fun getRandomPlants(): Flow<Plant>
+    fun getPlant(): Flow<Plant>
 //    fun scanImage(): Flow<Plant>
 }

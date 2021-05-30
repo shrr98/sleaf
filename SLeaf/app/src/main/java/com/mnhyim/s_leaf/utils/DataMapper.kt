@@ -27,7 +27,7 @@ object DataMapper {
         isFavorite = input.isFavorite
     )
 
-    fun mapResponseToDomain(input: List<PlantResponse>): List<Plant> =
+    fun mapResponseListToDomain(input: List<PlantResponse>): List<Plant> =
         input.map {
             Plant(
                 id = it.id,
@@ -39,4 +39,16 @@ object DataMapper {
                 isFavorite = false
             )
         }
+
+    fun mapResponseListToDomain(input: PlantResponse) =
+        Plant(
+            id = input.id,
+            desc = input.desc,
+            className = input.className,
+            name = input.name,
+            scientificName = input.scientificName,
+            imageURL = input.imageURL,
+            isFavorite = false
+        )
+
 }

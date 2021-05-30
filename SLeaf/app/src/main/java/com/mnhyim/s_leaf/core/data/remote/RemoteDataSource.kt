@@ -4,6 +4,7 @@ import android.util.Log
 import com.mnhyim.s_leaf.core.data.remote.api.ApiResponse
 import com.mnhyim.s_leaf.core.data.remote.api.ApiService
 import com.mnhyim.s_leaf.core.data.remote.response.PlantResponse
+import com.mnhyim.s_leaf.core.domain.model.Plant
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -21,6 +22,17 @@ class RemoteDataSource(private val apiService: ApiService) {
                 } else {
                     Log.e("RemoteDataSource", "empty")
                 }
+            } catch (e: Exception) {
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun getPlant(): Flow<PlantResponse> {
+        return flow {
+            try {
+                val response = apiService.getPlant()
+                emit(response)
             } catch (e: Exception) {
                 Log.e("RemoteDataSource", e.toString())
             }

@@ -11,7 +11,7 @@ interface ApiService {
     suspend fun getAllPlants(): List<PlantResponse>
 
     @GET("random")
-    suspend fun getRandomPlant(): PlantResponse
+    suspend fun getPlant(): PlantResponse
 
     @FormUrlEncoded
     @POST("upload")

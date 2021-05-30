@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mnhyim.s_leaf.R
 import com.mnhyim.s_leaf.core.domain.model.Plant
@@ -13,9 +14,13 @@ import com.mnhyim.s_leaf.core.ui.FavoriteAdapter
 import com.mnhyim.s_leaf.core.ui.HomeAdapter
 import com.mnhyim.s_leaf.databinding.FragmentFavoriteBinding
 import com.mnhyim.s_leaf.databinding.FragmentHomeBinding
+import com.mnhyim.s_leaf.utils.Constants.CAROUSEL_AUTOPLAY
 import com.mnhyim.s_leaf.views.favorite.FavoriteViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
+import org.imaginativeworld.whynotimagecarousel.model.CarouselType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
@@ -40,6 +45,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
+
             val homeAdapter = HomeAdapter()
 
             homeAdapter.onItemClick = { selectedData ->
@@ -57,15 +63,38 @@ class HomeFragment : Fragment() {
                 Log.d(TAG, "$selectedData clicked")
             }
 
-            homeViewModel.listPlants.observe(viewLifecycleOwner, { data ->
-                homeAdapter.setData(data)
-                if (homeAdapter.getItemCount() > 0) homeBinding.progressBar.visibility = View.INVISIBLE
-            })
-
             with(homeBinding.rvPlants) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = homeAdapter
+            }
+
+            homeViewModel.listPlants.observe(viewLifecycleOwner, { data ->
+                homeAdapter.setData(data)
+                if (homeAdapter.getItemCount() > 0) homeBinding.progressBar.visibility = View.INVISIBLE
+            })
+        }
+    }
+
+    // Setting Carousel
+    private fun setCarousel() {
+        homeBinding.csHome.apply {
+            registerLifecycle(lifecycle)
+            // setData()
+
+            carouselType = CarouselType.BLOCK
+            autoPlay = true
+            autoPlayDelay = CAROUSEL_AUTOPLAY
+            touchToPause = true
+            infiniteCarousel = true
+            carouselListener = object : CarouselListener {
+                override fun onClick(position: Int, carouselItem: CarouselItem) {
+                    Toast.makeText(context, "You clicked it.", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onLongClick(position: Int, carouselItem: CarouselItem) {
+                    Toast.makeText(context, "You long clicked it.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

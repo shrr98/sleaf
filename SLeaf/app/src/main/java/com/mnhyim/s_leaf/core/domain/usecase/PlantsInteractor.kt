@@ -13,9 +13,9 @@ class PlantsInteractor(private val favoriteRepository: IPlantsRepository): Plant
         return favoriteRepository.getAllPlants()
     }
 
-//    override fun getRandomPlants(): Flow<PlantResponse> {
-//        return favoriteRepository.getRandomPlants()
-//    }
+    override fun getPlant(): Flow<Plant> {
+        return favoriteRepository.getPlant()
+    }
 //
 //    override fun scanImage(): Flow<PlantResponse> {
 //        return favoriteRepository.scanImage()

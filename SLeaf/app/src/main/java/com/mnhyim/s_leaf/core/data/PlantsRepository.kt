@@ -2,7 +2,6 @@ package com.mnhyim.s_leaf.core.data
 
 import com.mnhyim.s_leaf.core.data.local.LocalDataSource
 import com.mnhyim.s_leaf.core.data.remote.RemoteDataSource
-import com.mnhyim.s_leaf.core.data.remote.response.PlantResponse
 import com.mnhyim.s_leaf.core.domain.model.Plant
 import com.mnhyim.s_leaf.core.domain.repository.IPlantsRepository
 import com.mnhyim.s_leaf.utils.AppExecutors
@@ -32,13 +31,15 @@ class PlantsRepository(
 
     override fun getAllPlants(): Flow<List<Plant>> {
         return remoteDataSource.getAllPlants().map {
-            DataMapper.mapResponseToDomain(it)
+            DataMapper.mapResponseListToDomain(it)
         }
     }
 
-//    override fun getRandomPlants(): Flow<Plant> {
-//        TODO("Not yet implemented")
-//    }
+    override fun getPlant(): Flow<Plant> {
+        return remoteDataSource.getPlant().map {
+            DataMapper.mapResponseListToDomain(it)
+        }
+    }
 //
 //    override fun scanImage(): Flow<Plant> {
 //        TODO("Not yet implemented")

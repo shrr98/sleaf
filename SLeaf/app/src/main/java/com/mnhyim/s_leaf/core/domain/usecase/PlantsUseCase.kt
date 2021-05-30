@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 interface PlantsUseCase {
 
     fun getAllPlants(): Flow<List<Plant>>
-//    fun getRandomPlants(): Flow<Plant>
+    fun getPlant(): Flow<Plant>
 //    fun scanImage(): Flow<Plant>
 }
