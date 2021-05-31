@@ -5,7 +5,9 @@ info:
   version: "1.0"
 
 host: "sleaf.endpoints.daun-314815.cloud.goog"
-
+x-google-endpoints:
+- name: "sleaf.endpoints.daun-314815.cloud.goog"
+  target: "35.238.247.171"
 schemes:
   - "http"
 

@@ -4,7 +4,7 @@ import numpy as np
 import requests
 import json
 
-MODEL_PATH = 'model/resnet50_bgmodify'
+MODEL_PATH = 'model/custom_bgmodify'
 LABEL_PATH = 'model/labels.txt'
 
 class Classifier:

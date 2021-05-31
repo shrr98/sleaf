@@ -19,7 +19,7 @@ def home():
 
 @app.route("/upload", methods=["POST"])
 def process_image():
-    print(request.form['image'])
+    # print(request.form['image'])
     data = request.form['image']
     image_data = base64.decodebytes(data.encode())
     img = Image.open(io.BytesIO(image_data))
@@ -57,8 +57,8 @@ def get_info(class_idx):
     path = os.path.join(app.config["INFO_DIR"], str(class_idx)+'.json')
     with open(path, 'r') as f:
         info = json.load(f)
-    info['id'] = class_idx
+    info['id'] = int(class_idx)
     return info
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(host="0.0.0.0", port=(int(os.environ.get("PORT", 8080))))
