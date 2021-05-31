@@ -9,4 +9,7 @@
     <string name="label_scan_image">Scan Image</string>
     <string name="label_open_gallery">Gallery</string>
     <string name="empty_favorite">You dont have any favorite plant!</string>
+
+    <string name="title_add_favorite">Add Favorites</string>
+    <string name="title_remove_favorite">Remove Favorites</string>
 </resources>

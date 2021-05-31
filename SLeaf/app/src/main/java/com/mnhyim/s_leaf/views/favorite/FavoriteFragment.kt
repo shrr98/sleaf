@@ -1,5 +1,6 @@
 package com.mnhyim.s_leaf.views.favorite
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mnhyim.s_leaf.core.domain.model.Plant
 import com.mnhyim.s_leaf.core.ui.FavoriteAdapter
 import com.mnhyim.s_leaf.databinding.FragmentFavoriteBinding
+import com.mnhyim.s_leaf.views.detail.DetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -36,7 +38,18 @@ class FavoriteFragment : Fragment() {
 
             val favoriteAdapter = FavoriteAdapter()
             favoriteAdapter.onItemClick = { selectedData ->
-                Log.d(TAG, "$selectedData clicked")
+                val plant = Plant(
+                    id = selectedData.id,
+                    className = selectedData.className,
+                    name = selectedData.name,
+                    desc = selectedData.desc,
+                    scientificName = selectedData.scientificName,
+                    imageURL = listOf(selectedData.imageURL[0], selectedData.imageURL[1]),
+                    isFavorite = true
+                )
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_PLANT, plant)
+                startActivity(intent)
             }
 
             favoriteViewModel.listFavorite.observe(viewLifecycleOwner, { dataFavorite ->
