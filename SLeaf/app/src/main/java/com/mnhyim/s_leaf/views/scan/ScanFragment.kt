@@ -67,7 +67,6 @@ class ScanFragment : Fragment(), View.OnClickListener {
                 Log.d(TAG, "btn_sendImage: pressed")
                 scanBinding.progressBar.visibility = View.VISIBLE
                 scanImage(takenImage)
-                startActivity(Intent(context, DetailActivity::class.java))
             }
             R.id.btn_galleryPicker -> {
                 Log.d(TAG, "btn_galleryPicker: pressed")
@@ -114,6 +113,9 @@ class ScanFragment : Fragment(), View.OnClickListener {
         val base64img = encodeToBase64(image)
         scanViewModel.setScanImage(base64img)
         scanViewModel.scanResult.observe(this, { plant ->
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_PLANT, plant)
+            startActivity(intent)
         })
     }
 
