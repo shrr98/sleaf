@@ -16,6 +16,12 @@ interface FavoriteDao {
     @Delete
     suspend fun delete(plantEntity: PlantEntity)
 
-    @Query("SELECT * from favorite ORDER BY id ASC")
+    @Query("SELECT * FROM favorite ORDER BY id ASC")
     fun getAllFavorites(): Flow<List<PlantEntity>>
+
+    @Query("SELECT COUNT() FROM favorite WHERE name = :name")
+    fun checkFavorite(name: String): Flow<Int>
+
+    @Query("DELETE FROM favorite WHERE name = :name")
+    suspend fun deleteByName(name: String)
 }

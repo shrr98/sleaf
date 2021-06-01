@@ -15,7 +15,6 @@ import androidx.fragment.app.Fragment
 import com.mnhyim.s_leaf.R
 import com.mnhyim.s_leaf.databinding.FragmentScanBinding
 import com.mnhyim.s_leaf.views.detail.DetailActivity
-import kotlinx.android.synthetic.main.fragment_scan.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.koin.androidx.viewmodel.ext.android.viewModel

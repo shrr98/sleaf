@@ -1,8 +1,8 @@
 package com.mnhyim.s_leaf.views.splash
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.mnhyim.s_leaf.R
 import com.mnhyim.s_leaf.utils.Constants.SPLASH_DURATION
 import com.mnhyim.s_leaf.views.main.MainActivity

@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.mnhyim.s_leaf.R
 import com.mnhyim.s_leaf.core.domain.model.Plant
 import com.mnhyim.s_leaf.databinding.ListItemPlantBinding
-import java.util.ArrayList
+import java.util.*
 
 class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
@@ -43,7 +43,9 @@ class FavoriteAdapter : RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        FavoriteViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_plant, parent, false))
+        FavoriteViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_plant, parent, false)
+        )
 
     override fun getItemCount() = listFavorite.size
 

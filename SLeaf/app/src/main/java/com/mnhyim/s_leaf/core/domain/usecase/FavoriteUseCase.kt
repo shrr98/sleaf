@@ -8,4 +8,8 @@ interface FavoriteUseCase {
     fun getAllFavorites(): Flow<List<Plant>>
 
     fun addFavorite(plant: Plant)
+
+    fun checkFavorite(name: String): Flow<Int>
+
+    fun deleteByName(name: String)
 }

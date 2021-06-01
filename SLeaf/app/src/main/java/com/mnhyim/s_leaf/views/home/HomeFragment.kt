@@ -1,27 +1,23 @@
 package com.mnhyim.s_leaf.views.home
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mnhyim.s_leaf.R
 import com.mnhyim.s_leaf.core.domain.model.Plant
-import com.mnhyim.s_leaf.core.ui.FavoriteAdapter
 import com.mnhyim.s_leaf.core.ui.HomeAdapter
-import com.mnhyim.s_leaf.databinding.FragmentFavoriteBinding
 import com.mnhyim.s_leaf.databinding.FragmentHomeBinding
 import com.mnhyim.s_leaf.utils.Constants.CAROUSEL_AUTOPLAY
 import com.mnhyim.s_leaf.utils.DataMapper
-import com.mnhyim.s_leaf.views.favorite.FavoriteViewModel
+import com.mnhyim.s_leaf.views.detail.DetailActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import org.imaginativeworld.whynotimagecarousel.listener.CarouselListener
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
-import org.imaginativeworld.whynotimagecarousel.model.CarouselType
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
@@ -48,20 +44,19 @@ class HomeFragment : Fragment() {
         if (activity != null) {
 
             val homeAdapter = HomeAdapter()
-
             homeAdapter.onItemClick = { selectedData ->
-                homeViewModel.addFavorite(
-                    Plant(
-                        id = selectedData.id,
-                        className = selectedData.className,
-                        name = selectedData.name,
-                        desc = selectedData.desc,
-                        scientificName = selectedData.scientificName,
-                        imageURL = listOf(selectedData.imageURL[0], selectedData.imageURL[1]),
-                        isFavorite = true
-                    )
+                val plant = Plant(
+                    id = selectedData.id,
+                    className = selectedData.className,
+                    name = selectedData.name,
+                    desc = selectedData.desc,
+                    scientificName = selectedData.scientificName,
+                    imageURL = listOf(selectedData.imageURL[0], selectedData.imageURL[1]),
+                    isFavorite = true
                 )
-                Log.d(TAG, "$selectedData clicked")
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_PLANT, plant)
+                startActivity(intent)
             }
 
             with(homeBinding.rvPlants) {
@@ -72,7 +67,8 @@ class HomeFragment : Fragment() {
 
             homeViewModel.listPlants.observe(viewLifecycleOwner, { data ->
                 homeAdapter.setData(data)
-                if (homeAdapter.getItemCount() > 0) homeBinding.progressBar.visibility = View.INVISIBLE
+                if (homeAdapter.getItemCount() > 0) homeBinding.progressBar.visibility =
+                    View.INVISIBLE
             })
 
             setCarousel()
@@ -81,25 +77,23 @@ class HomeFragment : Fragment() {
 
     // Setting Carousel
     private fun setCarousel() {
-        homeBinding.csHome.apply {
-            registerLifecycle(lifecycle)
-            autoPlay = true
-            autoPlayDelay = CAROUSEL_AUTOPLAY
-            touchToPause = true
-            infiniteCarousel = true
-            carouselListener = object : CarouselListener {
-                override fun onClick(position: Int, carouselItem: CarouselItem) {
-                    Toast.makeText(context, "You clicked it.", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onLongClick(position: Int, carouselItem: CarouselItem) {
-                    Toast.makeText(context, "You long clicked it.", Toast.LENGTH_SHORT).show()
+        homeViewModel.getPlant().observe(viewLifecycleOwner, { data ->
+            val datax = DataMapper.mapDomainToCarouselItem(data)
+            homeBinding.csHome.apply {
+                registerLifecycle(lifecycle)
+                autoPlay = true
+                autoPlayDelay = CAROUSEL_AUTOPLAY
+                setData(datax)
+                touchToPause = true
+                infiniteCarousel = true
+                carouselListener = object : CarouselListener {
+                    override fun onClick(position: Int, carouselItem: CarouselItem) {
+                        val intent = Intent(context, DetailActivity::class.java)
+                        intent.putExtra(DetailActivity.EXTRA_PLANT, data[position])
+                        startActivity(intent)
+                    }
                 }
             }
-        }
-        homeViewModel.getPlant().observe(viewLifecycleOwner, { data ->
-            val data = DataMapper.mapDomainToCarouselItem(data)
-            homeBinding.csHome.setData(data)
         })
     }
 }

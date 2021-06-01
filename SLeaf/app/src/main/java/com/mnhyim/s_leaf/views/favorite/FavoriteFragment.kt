@@ -13,7 +13,6 @@ import com.mnhyim.s_leaf.core.ui.FavoriteAdapter
 import com.mnhyim.s_leaf.databinding.FragmentFavoriteBinding
 import com.mnhyim.s_leaf.views.detail.DetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 class FavoriteFragment : Fragment() {
 
@@ -54,7 +53,11 @@ class FavoriteFragment : Fragment() {
 
             favoriteViewModel.listFavorite.observe(viewLifecycleOwner, { dataFavorite ->
                 favoriteAdapter.setData(dataFavorite)
-                Log.d(TAG, "${favoriteViewModel.listFavorite.value}")
+                if (dataFavorite.size > 0) {
+                    favoriteBinding.tvEmptyFavorites.visibility = View.GONE
+                } else {
+                    favoriteBinding.tvEmptyFavorites.visibility = View.VISIBLE
+                }
             })
 
             with(favoriteBinding.rvPlants) {

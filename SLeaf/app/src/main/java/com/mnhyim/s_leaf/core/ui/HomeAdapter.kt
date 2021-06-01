@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.mnhyim.s_leaf.R
 import com.mnhyim.s_leaf.core.domain.model.Plant
 import com.mnhyim.s_leaf.databinding.ListItemPlantBinding
-import java.util.ArrayList
+import java.util.*
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
@@ -43,7 +43,9 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        HomeViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_plant, parent, false))
+        HomeViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_plant, parent, false)
+        )
 
     override fun getItemCount() = listHome.size
 
