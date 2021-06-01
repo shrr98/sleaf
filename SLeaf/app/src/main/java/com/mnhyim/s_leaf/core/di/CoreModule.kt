@@ -7,7 +7,6 @@ import com.mnhyim.s_leaf.core.data.local.room.FavoriteDatabase
 import com.mnhyim.s_leaf.core.data.remote.RemoteDataSource
 import com.mnhyim.s_leaf.core.data.remote.api.ApiService
 import com.mnhyim.s_leaf.core.domain.repository.IPlantsRepository
-import com.mnhyim.s_leaf.utils.AppExecutors
 import com.mnhyim.s_leaf.utils.Constants.BASE_URL
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -48,6 +47,5 @@ val networkModule = module {
 val repositoryModule = module {
     single { LocalDataSource(get()) }
     single { RemoteDataSource(get()) }
-    factory { AppExecutors() }
     single<IPlantsRepository> { PlantsRepository(get(), get()) }
 }

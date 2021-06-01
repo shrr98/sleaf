@@ -20,11 +20,7 @@ class ScanViewModel(private val plantsUseCase: PlantsUseCase) : ViewModel() {
     val scanResult = queryChannel.asFlow()
         .debounce(100)
         .distinctUntilChanged()
-        .filter {
-            it.trim().isNotEmpty()
-        }
-        .flatMapLatest {
+        .flatMapMerge {
             plantsUseCase.uploadImage(it)
         }.asLiveData()
-
 }

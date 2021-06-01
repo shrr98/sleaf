@@ -11,5 +11,6 @@ data class Plant(
     val desc: String,
     val scientificName: String,
     val imageURL: List<String>,
-    val isFavorite: Boolean
+    val isFavorite: Boolean,
+    val score: String = ""
 ) : Parcelable

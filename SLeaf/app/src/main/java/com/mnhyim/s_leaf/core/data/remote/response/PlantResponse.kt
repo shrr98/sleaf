@@ -19,5 +19,8 @@ data class PlantResponse(
     val imageURL: List<String>,
 
     @field:SerializedName("scientific_name")
-    val scientificName: String
+    val scientificName: String,
+
+    @field:SerializedName("score")
+    val score: String
 )

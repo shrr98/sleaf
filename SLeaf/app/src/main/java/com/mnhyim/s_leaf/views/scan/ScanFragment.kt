@@ -1,6 +1,7 @@
 package com.mnhyim.s_leaf.views.scan
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
@@ -13,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.mnhyim.s_leaf.R
+import com.mnhyim.s_leaf.core.domain.model.Plant
 import com.mnhyim.s_leaf.databinding.FragmentScanBinding
 import com.mnhyim.s_leaf.views.detail.DetailActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -55,21 +57,19 @@ class ScanFragment : Fragment(), View.OnClickListener {
     override fun onResume() {
         super.onResume()
         scanBinding.progressBar.visibility = View.GONE
+        scanViewModel.scanResult.removeObservers(viewLifecycleOwner)
     }
 
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btn_captureImage -> {
-                Log.d(TAG, "btn_captureImage: pressed")
                 captureImage()
             }
             R.id.btn_scanImage -> {
-                Log.d(TAG, "btn_sendImage: pressed")
                 scanBinding.progressBar.visibility = View.VISIBLE
                 scanImage(takenImage)
             }
             R.id.btn_galleryPicker -> {
-                Log.d(TAG, "btn_galleryPicker: pressed")
                 pickGallery()
             }
         }
@@ -110,19 +110,33 @@ class ScanFragment : Fragment(), View.OnClickListener {
     }
 
     private fun scanImage(image: Bitmap) {
-        val base64img = encodeToBase64(image)
-        scanViewModel.setScanImage(base64img)
-        scanViewModel.scanResult.observe(this, { plant ->
-            val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra(DetailActivity.EXTRA_PLANT, plant)
-            startActivity(intent)
-        })
-    }
-
-    private fun encodeToBase64(image: Bitmap): String {
         val baos = ByteArrayOutputStream()
         image.compress(Bitmap.CompressFormat.PNG, 100, baos)
         val b = baos.toByteArray()
-        return Base64.encodeToString(b, Base64.DEFAULT)
+        val base64img = Base64.encodeToString(b, Base64.DEFAULT)
+
+        scanViewModel.setScanImage(base64img)
+        scanViewModel.scanResult.observe(viewLifecycleOwner, { plant ->
+            openDialog(plant)
+        })
+    }
+
+    private fun openDialog(plant: Plant) {
+        val builder = AlertDialog.Builder(context)
+        with (builder) {
+            setTitle("Scan complete!")
+            setMessage("Match level: ${plant.score}, Open Detail page?")
+            setPositiveButton(
+                "Open") { dialog, id ->
+                val intent = Intent(context, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_PLANT, plant)
+                startActivity(intent)
+            }
+            setNegativeButton(
+                "Cancel") { dialog, id ->
+                // User cancelled the dialog
+            }
+            show()
+        }
     }
 }

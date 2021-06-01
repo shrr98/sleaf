@@ -37,7 +37,8 @@ object DataMapper {
                 name = it.name,
                 scientificName = it.scientificName,
                 imageURL = it.imageURL,
-                isFavorite = false
+                isFavorite = false,
+                score = it.score
             )
         }
 
@@ -49,7 +50,8 @@ object DataMapper {
             name = input.name,
             scientificName = input.scientificName,
             imageURL = input.imageURL,
-            isFavorite = false
+            isFavorite = false,
+            score = input.score
         )
 
     fun mapDomainToCarouselItem(input: List<Plant>): List<CarouselItem> =
