@@ -1,20 +1,19 @@
-1. build image
-```bash
-docker build -t server_sleaf:latest .
-```
+# S-Leaf API
 
-2. run container
-```bash
-sudo docker run -v "$(pwd)/model/resnet50_bgmodify:/app/model/resnet50_bgmodify" -p 5000:5000 server_sleaf:latest
-```
-URL bisa diakses:
-- http://127.0.0.1:5000 : halaman utama dummy (lewat browser)
-- http://127.0.0.1:5000/random : API untuk random tanaman -> response : info tanaman random
-- http://127.0.0.1:5000/upload : API predict image -> response: info tanaman
+## Endpoints
+This API consists of:
+1. ```[IP/domain_name]/upload```
+    To upload an image and get the information of the predicted species.
+
+1. ```[IP/domain_name]/random```
+    To get 3 random plants information.
+
+1. ```[IP/domain_name]/all```
+    To get information about all plants species stored in the server.
 
 
-RESPONSE
-contoh:
+## RESPONSE FORMAT
+Response of 1 record will look like this:
 ```json
 {
     "class_name": "Alpinia Galanga (Lengkuas)",
@@ -24,6 +23,18 @@ contoh:
     "img_urls": [
         "https://prasetio23.files.wordpress.com/2015/01/download-3.jpg",
         "https://foto.kontan.co.id/taUhIcxCd3YrdcwZsCFbmDGa1sw=/smart/2020/06/11/553414440p.jpg"
-    ]
+    ],
+    score: "58%"
 }
+```
+
+Response of >1 records (/random, /all) will look like:
+```json
+[
+    record_1,
+    record_2,
+    .
+    .
+    .
+]
 ```
