@@ -24,7 +24,7 @@ Response of 1 record will look like this:
         "https://prasetio23.files.wordpress.com/2015/01/download-3.jpg",
         "https://foto.kontan.co.id/taUhIcxCd3YrdcwZsCFbmDGa1sw=/smart/2020/06/11/553414440p.jpg"
     ],
-    score: "58%"
+    "score": "58%"
 }
 ```
 
