@@ -17,8 +17,12 @@ To deploy the model on Google Compute Engine, make sure you have [docker install
 1. Clone this repository on your VM instance
 1. Go to ```server/main_server```.
 1. Download your model that's already saved in Google Drive by following [this tutorial](https://medium.com/@acpanjan/download-google-drive-files-using-wget-3c2c025a8b99). </br>
-    Save it in ```server/main_server/model```.
-1. Build your docker image. Run this command:
+    Save it in ```server/main_server/model```.</br>
+    Then, go to the model dir, and unzip the model:
+    ```bash
+    unzip [YOUR_ZIPPED_MODEL]
+    ```
+1. Go back to ```server/main_server``` dir. Build your docker image by running this command:
     ```bash
     sudo docker build -t sleaf:latest .
     ```
