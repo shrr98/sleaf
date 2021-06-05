@@ -6,6 +6,27 @@ To train the model, you can use this [training notebook](ML/training/Training.ip
 If you want to use the background images we use on this experiment, you can download it on [this link](https://drive.google.com/file/d/1K8Hvf6wJtrlG9iczYZsow_s7UO5oZ1D4/view?usp=sharing) and upload it to your Google Drive.
 
 ## Creating VM instances On GCE
+1. From GCP Dashboard click Navigation menu and click compute engine on compute section
+2. Make sure you at VM Instance and click create instance
+3. Name your instance example instance-2
+4. Choose us-central-1 for region and us-central1-a for zone (optional) 
+5. On Machine Configuration, on series section choose N1 Series and choose n1-standard-1 on machine type section
+6. You can choose any boot disk whatever do you want, for my case i choose ubuntu 18.04
+7. Checklist on Allow HTTP traffic and Allow HTTPS traffic on Firewall section (this turn for endpoint case if you want connect it to your android/web application)
+8. Click Management, security, disks, networking, sole tenancy
+9. Click on Networking
+10. Fill flask-server on Network tags
+11. At last click create
+
+## Creating VPC network 
+The purpose of making VPC network is to connect the network from the VM to the browser
+1. Click VPC network on Navigation menu
+2. If you already on VPC Network click firewall
+3. Click Create Firewall rule
+4. On Create Firewall rule name your Firewall rule, on my case i name it allow-flask
+5. On Target tags fill with flask-server and On Source IP ranges fill with 0.0.0.0/0
+6. Make sure you setting TCP on 5000 (this thing for port)
+7. At last click create
 
 ## Deploying the Model
 [!] After training, make sure that you already save your model in your drive.</br>
