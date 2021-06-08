@@ -128,3 +128,6 @@ To deploy the model on Google Compute Engine, make sure you have [docker install
     and you will get the response as defined [here](server/main_server/README.md)
 
 ## Building the Apps
+1. Clone the repository to your local device
+2. Change BASE_URL variable in Constants class located on utils package to your API URL
+3. Run the application on your device 
