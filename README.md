@@ -2,6 +2,10 @@
 S-Leaf: Leaf recognition for plant information retrieval
 is a system in the form of an application that is able to identify different plant species based on the leaf object of the plant. 
 
+<p align="center">
+<img src="https://github.com/shrr98/sleaf/blob/main/Logo-leaves.png" width="250" height="250" />
+</p>
+
 ## Training the Model
 To train the model, you can use this [training notebook](ML/training/Training.ipynb).</br>
 If you want to use the background images we use on this experiment, you can download it on [this link](https://drive.google.com/file/d/1K8Hvf6wJtrlG9iczYZsow_s7UO5oZ1D4/view?usp=sharing) and upload it to your Google Drive.
